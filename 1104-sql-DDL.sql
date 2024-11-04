@@ -113,5 +113,85 @@ modify post varchar(10);
 alter table 회원정보
 drop post;
 
+###################################
+CREATE TABLE dept (
+	deptno int PRIMARY KEY AUTO_INCREMENT,
+    dname varchar(50),
+    loc varchar(50)
+);
+
+CREATE TABLE emp (
+	empno int PRIMARY KEY AUTO_INCREMENT,
+    ename varchar(50),
+    job varchar(50),
+    mgr int,
+    hiredate DATETIME,
+    sal int,
+    comm int,
+    deptno int,
+    FOREIGN KEY (deptno) REFERENCES dept(deptno)
+);
+
+desc dept;
+desc emp;
+CREATE TABLE professor (
+	id varchar(50) primary key,
+    name varchar(50),
+    tel varchar(50),
+    deptid int,
+    addr varchar(50),
+    roomno varchar(50),
+    foreign key (deptid) REFERENCES dept(deptno)
+);
+
+CREATE TABLE student (
+	id varchar(50) PRIMARY KEY,
+    name varchar(50),
+    tel varchar(50),
+    deptid int,
+    professorid varchar(50),
+    foreign key (deptid) REFERENCES dept(deptno),
+    foreign key (professorid) REFERENCES professor(id)
+);
+
+desc student;
+
+insert into dept values
+(null, '컴퓨터공학', '공학관101호');
+
+insert into dept values
+(null, '미디어정보', '공학관102호');
+
+select * from dept;
+
+
+
+
+
+
+
+
+insert into emp values
+(null, '김길동', '신입', 2, '2024-03-02', 500, 1000, 1);
+insert into emp values
+(null, '송길동', '매니저', 1, '2023-03-02', 600, 2000, 1);
+
+select * from emp;
+
+INSERT INTO professor VALUES
+('100', '쿠로미', '019', 2, '강남구', '601호');
+INSERT INTO professor VALUES
+('200', '김마우스', '011', 1, '송파구', '602호');
+select * from professor;
+
+insert into student values
+('s100', '초코칩', '011', 1, '100');
+insert into student values
+('s200', '피너츠', '012', 1, '200');
+select * from student;
+
+
+
+
 
 
