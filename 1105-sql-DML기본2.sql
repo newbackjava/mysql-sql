@@ -134,8 +134,56 @@ select DEPTNO from emp;
 select distinct DEPTNO from emp;
 select ename, sal * 12 as 연봉 from emp;
 
-select * from emp
-order by sal; 
 -- sal컬럼을 기준으로 오름차순 정렬(asc생략)
 select * from emp
-order by sal desc; -- sal컬럼을 기준으로 오름차순 정렬
+order by sal; 
+
+
+-- sal컬럼을 기준으로 내림차순 정렬
+select * from emp
+order by sal desc; 
+
+select * from emp
+where deptno = 30;
+
+select ename, empno, deptno from emp
+where not deptno = 30;
+
+select ename, empno, deptno from emp
+where not deptno = 30 and job='CLERK';
+
+select ename, empno, deptno from emp
+where not deptno = 30 or job='CLERK';
+
+select ename, empno, sal, deptno from emp
+where sal >= 3000;
+
+select ename, empno, sal, deptno from emp
+where sal != 3000;
+
+select ename, empno, sal, job from emp
+where job = 'MANAGER';
+
+select ename, empno, sal, job from emp
+where job in ('MANAGER', 'CLERK');
+
+select ename, empno, sal, job from emp
+where job not in ('MANAGER', 'CLERK');
+
+select ename, empno, sal, job from emp
+where sal between 2000 and 3000;
+
+select ename, empno, sal, job from emp
+where sal not between 2000 and 3000;
+
+select ename, empno, sal, job from emp
+where ename like '_L%';
+
+select ename, empno, sal, job from emp
+where ename not like '_L%';
+
+select ename, empno, sal, job, comm from emp
+where comm is not null;
+
+select ename, empno, sal, job, comm from emp
+where HIREDATE > '1981-01-01';
