@@ -187,3 +187,13 @@ where comm is not null;
 
 select ename, empno, sal, job, comm from emp
 where HIREDATE > '1981-01-01';
+
+use world;
+SELECT distinct district FROM city
+order by district desc;
+
+select * from city 
+into outfile 'C:/ProgramData/MySQL/MySQL Server 8.0/uploads/city-backup.csv'
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
