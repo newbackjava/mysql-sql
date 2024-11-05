@@ -117,3 +117,25 @@ update productOrder
 set id = 200
 where title = 'mouse';
 
+########################################
+use school;
+create table dept 
+as select * from dept_data;
+
+create table emp 
+as select * from emp_data;
+
+create table salgrade 
+as select * from salgrade_data;
+
+############ select
+select * from emp;
+select DEPTNO from emp;
+select distinct DEPTNO from emp;
+select ename, sal * 12 as 연봉 from emp;
+
+select * from emp
+order by sal; 
+-- sal컬럼을 기준으로 오름차순 정렬(asc생략)
+select * from emp
+order by sal desc; -- sal컬럼을 기준으로 오름차순 정렬
