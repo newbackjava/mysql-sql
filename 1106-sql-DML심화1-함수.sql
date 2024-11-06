@@ -18,9 +18,6 @@ where comm = "";
 
 SELECT DATE(NOW());
 
-
-
-
 #### 문자함수 ####
 select * from emp; -- 전체 검색
 select lower(ename) from emp; -- ename을 소문자로 해서 검색
