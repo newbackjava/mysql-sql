@@ -85,5 +85,61 @@ SELECT EMPNO, ENAME, JOB, SAL,
     ) AS U_SAL
 FROM EMP;
 
+#### 집계/그룹함수 ####
+select count(empno) from emp;
 
+select count(empno), sum(sal), avg(sal), max(sal), min(sal)
+from emp;
+
+select deptno, avg(sal), max(sal), min(sal)
+from emp
+group by deptno;
+
+select deptno, avg(sal), max(sal), min(sal)
+from emp
+group by deptno
+order by deptno desc;
+
+-- job을 기준으로 그룹으로 묶어서 월급평균, 월급최대를 구해보세요.
+-- 정렬은 job의 오름차순으로!
+-- 출력은 job, 평균, 최대 순으로!
+select job, avg(sal), max(sal)
+from emp
+group by job
+order by job asc; -- asc는 생략 가능
+
+SELECT job, count(SAL), sum(SAL), round(AVG(sal)), 
+       MIN(SAL), MAX(SAL)
+FROM EMP
+GROUP BY JOB
+HAVING COUNT(SAL) >= 4
+ORDER BY JOB DESC;
+
+SELECT job, count(SAL), sum(SAL), round(AVG(sal)), 
+       MIN(SAL), MAX(SAL)
+FROM EMP
+GROUP BY JOB
+HAVING max(sal) > 2500
+ORDER BY JOB DESC;
+
+SELECT job, count(SAL), sum(SAL), round(AVG(sal)), 
+       MIN(SAL), MAX(SAL)
+FROM EMP
+GROUP BY JOB
+HAVING job in ('MANAGER','CLERK')
+ORDER BY JOB DESC;
+
+SELECT job, count(SAL), sum(SAL), round(AVG(sal)), 
+       MIN(SAL), MAX(SAL)
+FROM EMP
+GROUP BY JOB
+ORDER BY JOB DESC;
+
+SELECT job, count(SAL) as c, sum(SAL), round(AVG(sal)), 
+       MIN(SAL), MAX(SAL)
+FROM EMP
+where job in ('MANAGER', 'CLERK', 'SALESMAN')
+GROUP BY job
+HAVING c > 3
+ORDER BY JOB DESC;
 
