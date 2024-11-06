@@ -72,7 +72,7 @@ select empno, ename, comm,
 		when comm is null then '해당사항없음'
         when comm = 0 then '수당없음'
         when comm > 0 then concat('수당: ', comm)
-	end as comm_text
+	end as comm_text  
 from emp;
 
 
@@ -135,11 +135,68 @@ FROM EMP
 GROUP BY JOB
 ORDER BY JOB DESC;
 
-SELECT job, count(SAL) as c, sum(SAL), round(AVG(sal)), 
+SELECT job, count(SAL) as c, sum(SAL) as s, round(AVG(sal)) as r, 
        MIN(SAL), MAX(SAL)
 FROM EMP
 where job in ('MANAGER', 'CLERK', 'SALESMAN')
 GROUP BY job
 HAVING c > 3
+
 ORDER BY JOB DESC;
+
+select a, b, 
+	(
+		select id from m 
+		where name = 'p'
+	) as c
+from m;
+
+#### 대용량 데이터 ####
+CREATE DATABASE moviedb;
+
+USE moviedb;
+CREATE TABLE movietbl
+(
+    movie_id INT,
+    movie_title VARCHAR(30),
+    movie_director VARCHAR(20),
+    movie_star VARCHAR(20),
+    movie_script LONGTEXT,
+    movie_film LONGBLOB
+) DEFAULT CHARSET=utf8mb4;
+
+select * from movietbl;
+
+INSERT INTO movietbl VALUES ( 1, '쉰들러 리스트', '스필버그', '리암 니슨',
+    LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/math.txt'), 
+    LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/img1.jpg')
+);
+
+SELECT * FROM movietbl;
+
+SELECT movie_script FROM movietbl WHERE movie_id=1
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/math_out.txt'
+LINES TERMINATED BY '\n';
+
+SELECT movie_film FROM movietbl WHERE movie_id=3
+INTO DUMPFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/img1_out.jpg';
+
+
+CREATE TABLE movietbl2
+(
+    movie_id INT,
+    movie_title VARCHAR(30),
+    movie_director VARCHAR(20),
+    movie_star VARCHAR(20),
+    movie_script text,
+    movie_film text
+) DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO movietbl2 VALUES ( 1, '쉰들러 리스트', '스필버그', '리암 니슨',
+	'https://drive.google.com/file/d/1KWwP3F0cOW2DEn6ENXjzX3JBXd41zB8p/view',
+    'https://drive.google.com/file/d/1utHCRUzrCwelEs2GZTXMaAiJioI8-6DO/view?usp=drive_link'
+);
+
+select * from movietbl2;
+
 
