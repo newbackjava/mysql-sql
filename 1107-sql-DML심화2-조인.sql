@@ -291,5 +291,5 @@ FROM PRODUCT P
 select name, content from product
 where name = 'Food1';
 
-SHOW TABLE STATUS WHERE Name = 'product';
+SHOW TABLE STATUS WHERE Name = 'Product';
 
