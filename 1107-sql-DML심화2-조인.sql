@@ -89,5 +89,54 @@ select location_id
 from departments
 where department_id = '3';
 
+#### 조인
+use shop;
+SELECT * FROM bbs;
+
+update bbs 
+set writer = 'ice'
+where no in (101, 103, 105, 107);
+
+create table member(
+	id varchar(250) primary key,
+    pw varchar(250),
+    name varchar(250),
+    tel varchar(250)
+);
+desc member;
+
+insert into member
+values
+('ice', '1234', 'ice', '5555'),
+('apple', '1234', 'apple', '7777');
+
+select * from member;
+
+alter table bbs
+add
+foreign key(writer) references member(id);
+
+desc bbs;
+
+select no, title, writer, tel
+from bbs, member
+where bbs.writer = member.id;
+
+select bbs.no, bbs.title, bbs.writer, member.tel
+from bbs, member
+where bbs.writer = member.id;
+
+select no, b.title, b.writer, m.tel
+from bbs b, member m
+where b.writer = m.id
+order by b.no;
+
+use school;
+select e.empno, e.ename, e.job, d.dname, d.deptno
+from emp e, dept  d
+where e.deptno = d.deptno
+order by empno;
+
+
 
 
