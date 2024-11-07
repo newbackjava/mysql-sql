@@ -3,6 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/1101-sql-DML기본.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/1106-sql-DML심화1-함수.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/1107-sql-DML심화2-조인.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/sql스키마-미니프로젝트/coupang.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/sql스키마-미니프로젝트/opgg.sql" dialect="MySQL" />
   </component>

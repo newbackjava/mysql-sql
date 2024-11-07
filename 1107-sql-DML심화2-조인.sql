@@ -134,9 +134,23 @@ order by b.no;
 use school;
 select e.empno, e.ename, e.job, d.dname, d.deptno
 from emp e, dept  d
-where e.deptno = d.deptno
+where e.deptno = d.deptno and empno > 7400
 order by empno;
 
 
+select e.empno, e.ename, e.job, d.dname, d.deptno
+from emp e
+join dept d
+    on e.deptno = d.deptno
+where empno > 7400
+order by empno;
+
+
+select e.empno, e.ename, e.job, d.dname, d.deptno
+from emp e
+join dept d
+on e.deptno = d.deptno -- 조인 기준 조건 on뒤에 써줌!
+where empno > 7400 -- 부가적인 조건
+order by empno;
 
 
