@@ -285,3 +285,11 @@ SELECT
 FROM PRODUCT P
          RIGHT OUTER JOIN COMPANY C
                           ON P.COMPANY = C.ID;
+
+
+####  test
+select name, content from product
+where name = 'Food1';
+
+SHOW TABLE STATUS WHERE Name = 'product';
+
