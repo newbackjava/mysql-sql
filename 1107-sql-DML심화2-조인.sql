@@ -153,4 +153,47 @@ on e.deptno = d.deptno -- 조인 기준 조건 on뒤에 써줌!
 where empno > 7400 -- 부가적인 조건
 order by empno;
 
+-- use shop;
+-- 1. 
+-- member의 id와 bbs의 writer는 데이터타입과 도메인이 동일
+-- 이것을 기준으로 내부조인(inner join)해보세요.
+-- 조인 결과는 다음 순서대로 나와야함.
+-- member의 id, name, bbs의 no, title, content
+-- ==> 2가지 방법으로 조인해보세요.!
+-- ==> bbs에 글을 쓰지 않은 사람은 결과에 나타나지 않음.
+-- 2. 위 1번에 bbs no가 105보다 큰 것만 내부조인해서 출력
+-- 3. 2번까지 한 결과에 bbs의 title로 내림차순 정렬
 
+use shop;
+select m.id, m.name, b.no, b.title, b.content
+from member m, bbs b
+where m.id = b.writer; 
+
+select m.id, m.name, b.no, b.title, b.content
+from member m
+join bbs b
+on m.id = b.writer;
+
+select m.id, m.name, b.no, b.title, b.content
+from member m
+join bbs b
+on m.id = b.writer
+where b.no > 105;
+
+select m.id, m.name, b.no, b.title, b.content
+from member m
+join bbs b
+on m.id = b.writer
+where b.no > 105
+order by b.title desc;
+
+#### outerjoin(외부조인, 아우터조인)
+select b.*, m.name
+from bbs b
+left join member m
+on b.writer = m.id;
+
+select b.no, m.*
+from bbs b
+right join member m
+on b.writer = m.id;
