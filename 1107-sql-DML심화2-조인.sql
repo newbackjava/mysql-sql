@@ -261,16 +261,27 @@ INSERT INTO PRODUCT (ID, NAME, CONTENT, PRICE, COMPANY, IMG) VALUES
 select * from company;
 select * from product;
 
-
-
-
-
-
-
 -- inner join
 -- left outer join
 -- right outer join
 
 
+SELECT P.ID AS Product_ID, P.NAME AS Product_Name, C.NAME AS Company_Name
+FROM PRODUCT P
+         INNER JOIN COMPANY C ON P.COMPANY = C.ID;
 
 
+
+SELECT
+    P.ID AS Product_ID,
+    P.NAME AS Product_Name, C.NAME AS Company_Name
+FROM PRODUCT P
+         LEFT OUTER JOIN COMPANY C
+                         ON P.COMPANY = C.ID;
+
+SELECT
+    P.ID AS Product_ID,
+    P.NAME AS Product_Name, C.NAME AS Company_Name
+FROM PRODUCT P
+         RIGHT OUTER JOIN COMPANY C
+                          ON P.COMPANY = C.ID;
