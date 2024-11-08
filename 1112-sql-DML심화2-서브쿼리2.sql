@@ -156,6 +156,7 @@ SELECT * FROM orders2;
 -- 트랜잭션 롤백
 rollback;
 
+-- 테이블 삭제 후 비교 테스트 다시 시작
 drop table customers2;
 drop table orders2;
 
