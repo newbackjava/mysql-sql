@@ -141,4 +141,45 @@ select empno, ename, (
 from employees;
 
 -- 직원 테이블에서 직원의 직원이름, 직원job, 부서위치를 검색
+select ename, job, (
+	select loc
+    from departments d
+    where d.deptno = employees.deptno
+) as 부서위치
+from employees;
+
+SELECT AVG(sal)
+FROM employees e2;
+
+SELECT ename
+FROM employees
+WHERE EXISTS (
+    SELECT 1
+    FROM departments
+    WHERE departments.deptno = employees.deptno
+    AND loc = 1700
+);
+
+select * from departments;
+
+-- 1. 단일행 서브쿼리 --> ACCOUNTING부서의 deptno를 조회해서
+-- 해당부서의 직원이름과 급여를 검색
+-- (단일 행 서브쿼리)
+
+-- 2. loc가 1800인 부서no를 검색해서 
+--    해당 부서에 속한 직원들의 이름과 부서no를 검색
+--    (다중 행 서브쿼리)
+
+-- 3.특정 직원(empno=7499)의 deptno와 job가 같은 
+--   다른 직원들의 ID와 이름을 조회하세요.(다중 열 서브쿼리)
+
+select * from employees;
+
+-- 4. 부서에서 deptno가 10이 있으면 
+--    직원테이블에서 empno와 결과라는 컬럼을 만들어 "있음"으로 출력
+select empno, "있음" as "결과" from employees
+where exists (select 1 from departments where deptno = 10);
+
+select empno, "있음" as "결과" from employees
+where exists (select 1 from departments where deptno = 100);
 
