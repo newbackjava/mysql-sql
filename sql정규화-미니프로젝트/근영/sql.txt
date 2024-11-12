@@ -1,0 +1,77 @@
+CREATE TABLE ControlCenters (
+    center_name VARCHAR(50) PRIMARY KEY,
+    center_contact VARCHAR(20)
+);
+
+INSERT INTO ControlCenters (center_name, center_contact) VALUES
+('Seoul Control Center', '02-1234-5678'),
+('Gyeonggi Control Center', '031-8765-4321');
+
+
+CREATE TABLE Roads (
+    road_name VARCHAR(50) PRIMARY KEY,
+    center_name VARCHAR(50),
+    FOREIGN KEY (center_name) REFERENCES ControlCenters(center_name)
+);
+
+INSERT INTO Roads (road_name, center_name) VALUES
+('Gangbyeonbuk-ro', 'Seoul Control Center'),
+('Olympic Boulevard', 'Seoul Control Center'),
+('Gyeongbu Expressway', 'Gyeonggi Control Center');
+
+CREATE TABLE TrafficStatus (
+    traffic_id VARCHAR(10) PRIMARY KEY,
+    road_name VARCHAR(50),
+    section VARCHAR(50),
+    traffic_volume INT,
+    speed INT,
+    FOREIGN KEY (road_name) REFERENCES Roads(road_name)
+);
+
+INSERT INTO TrafficStatus (traffic_id, road_name, section, traffic_volume, speed) VALUES
+('001', 'Gangbyeonbuk-ro', 'Hangang Bridge - Dongjak Bridge', 500, 60),
+('002', 'Gangbyeonbuk-ro', 'Dongjak Bridge - Seongsu Bridge', 450, 55),
+('003', 'Olympic Boulevard', 'Jamsil Bridge - Cheonho Bridge', 300, 80),
+('004', 'Gyeongbu Expressway', 'Yangjae IC - Jukjeon IC', 700, 90);
+
+-- 유효성 검증.
+INSERT INTO Roads (road_name, center_name) VALUES
+('동부간선도로', 'Seoul Control Center'),
+('내부순환도로', 'Seoul Control Center');
+INSERT INTO TrafficStatus (road_name, section, traffic_volume, speed) VALUES
+('내부순환도로', '월드컵대교 북단 - 성산대교 북단', 600, 70),
+('동부간선도로', '의정부 - 월릉교', 500, 65);
+
+-- 참조중이므로 삭제 실패해야함
+DELETE FROM ControlCenters 
+WHERE center_name = 'Seoul Control Center';
+
+DELETE FROM Roads 
+WHERE road_name = 'Gangbyeonbuk-ro';
+
+
+UPDATE TrafficStatus 
+SET speed = 120
+WHERE road_name = 'Olympic Boulevard';
+
+-- 참조중이므로 업데이트 실패해야함
+UPDATE TrafficStatus 
+SET road_name = 'Kings Down St'
+WHERE traffic_id = '003';
+
+-- JOIN
+-- 정규화 이전 테이블 처럼출력
+SELECT 
+    T.traffic_id,
+    R.road_name,
+    T.section,
+    T.traffic_volume,
+    T.speed,
+    C.center_name,
+    C.center_contact
+FROM 
+    TrafficStatus T
+JOIN 
+    Roads R ON T.road_name = R.road_name
+JOIN 
+    ControlCenters C ON R.center_name = C.center_name;

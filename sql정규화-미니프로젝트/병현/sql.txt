@@ -1,0 +1,51 @@
+-- 1,2 정규화
+create table 맛집(
+	맛집ID int primary key auto_increment,
+    맛집이름 varchar(45),
+    위치 varchar(45),
+    메뉴 varchar(45),
+    가격 varchar(45),
+    평점 double,
+    운영시간 varchar(45),
+    연락처 varchar(45)
+);
+
+-- 3 정규화
+CREATE TABLE STORE(
+	맛집ID int primary key auto_increment,
+    맛집이름 varchar(45),
+    위치 varchar(45),
+    평점 double,
+    운영시간 varchar(45),
+    연락처 varchar(45)
+);
+
+CREATE TABLE MENU(
+	맛집ID int,
+	메뉴 varchar(45),
+    가격 varchar(45),
+    foreign key(맛집ID) references STORE(맛집ID)
+);
+
+-- 맛집 테이블에 데이터 삽입
+INSERT INTO STORE (맛집이름, 위치, 평점, 운영시간, 연락처) VALUES
+('맛있는 김밥집', '서울시 강남구', 4.5, '09:00-21:00', '010-1234-5678'),
+('훌륭한 피자집', '서울시 마포구', 4.7, '10:00-23:00', '010-9876-5432');
+
+-- 메뉴 테이블에 데이터 삽입 (맛집ID를 참조하여 각 맛집의 메뉴와 가격을 저장)
+INSERT INTO MENU (맛집ID, 메뉴, 가격) VALUES
+(1, '김밥', '5000'),
+(1, '라면', '6000'),
+(1, '떡볶이', '4000'),
+(2, '페퍼로니 피자', '12000'),
+(2, '치즈 피자', '11000');
+
+select *
+from menu;
+
+select *
+from STORE;
+
+select *
+from STORE
+INNER JOIN MENU ON STORE.맛집ID = MENU.맛집ID;
