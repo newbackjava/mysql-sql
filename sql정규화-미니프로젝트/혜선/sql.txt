@@ -1,0 +1,56 @@
+use traffic;
+
+-- 관제센터 테이블 생성
+CREATE TABLE control (
+    name VARCHAR(50) PRIMARY KEY,
+    tel VARCHAR(20)
+);
+
+-- 도로 테이블 생성
+CREATE TABLE road (
+	road_idx int primary key auto_increment,
+    roadname VARCHAR(50),
+    section VARCHAR(50)
+);
+
+-- 교통상황 테이블 생성
+CREATE TABLE status (
+    trafficID int PRIMARY KEY auto_increment,
+	road_idx int,
+    trafficload INT,
+    speed INT,
+    centername varchar(100),
+    foreign key (centername) references control(name),
+    foreign key (road_idx) references road(road_idx)
+);
+
+-- 관제센터 테이블에 데이터 삽입
+INSERT INTO control (name, tel) VALUES
+('서울관제센터', '02-1234-5678'),
+('경기도관제센터', '031-8765-4321');
+
+-- 도로 테이블에 데이터 삽입
+INSERT INTO road (road_idx, roadname, section) VALUES
+(null, '강변북로', '한강대교-동작대교'),
+(null, '강변북로', '동작대교-성수대교'),
+(null, '올림픽대로', '잠실대교-천호대교'),
+(null, '경부고속도로', '양재IC-죽전IC');
+
+-- 교통상황 테이블에 데이터 삽입
+insert into status (trafficID, road_idx, trafficload, speed, centername) values
+(null, 1, 500, 60, '서울관제센터'),
+(null, 2, 450, 55, '서울관제센터'),
+(null, 3, 300, 80, '서울관제센터'),
+(null, 4, 700, 90, '경기도관제센터');
+
+
+select * from control;
+
+select * from road;
+
+select * from status;
+
+-- inner join
+select s.trafficID, r.roadname, r.section, s.trafficload, s.speed, c.name, c.tel
+from status s, road r, control c
+where r.road_idx = s.road_idx and c.name = s.centername;
